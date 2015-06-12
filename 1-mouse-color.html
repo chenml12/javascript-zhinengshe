@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>鼠标移动，使字体颜色改变</title>
+    <style>
+        #div1 {
+            color: #ff0000
+        }
+    </style>
+    <script>
+        function  getRandomColor(){
+            var letters = '0123456789abcdef'.split('');
+            var colors = '#';
+            for(var i = 0; i < 6; ++i){
+                colors += letters[Math.floor(Math.random()*16)];
+            }
+            return colors;
+        }
+        function toColor() {
+            document.getElementById("div1").style.color = getRandomColor();
+        }
+        function reset() {
+            document.getElementById("div1").style.color = "#ff0000";
+        }
+    </script>
+</head>
+<body>
+<div id="div1" onmouseover="toColor()" onmouseout="reset()">
+    这是一些神奇的文字
+</div>
+
+</body>
+</html>
