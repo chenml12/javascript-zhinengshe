@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>显示隐藏菜单</title>
+    <style>
+        #div1 {
+            width : 150px;
+            height: 80px;
+            background: #CCCCCC;
+            display:none;
+            border: 1px solid #999999;
+        }
+        #menu {
+            font-size: 14px;
+            overflow: hidden;
+        }
+        #menu li {
+            list-style: none;
+            text-decoration: none;
+        }
+        #menu li:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function showHide(){
+            var onDiv = document.getElementById('div1');
+            if (onDiv.style.display == 'block'){
+                onDiv.style.display = 'none';
+            } else {
+                onDiv.style.display = 'block';
+            }
+        }
+    </script>
+</head>
+
+<body>
+<input type="button" value="更多" onclick="showHide()">
+<div id="div1">
+<ul id="menu">
+    <li>首页</li>
+    <li>联系我们</li>
+    <li>加入我们</li>
+</ul>
+</div>
+
+</body>
+</html>
