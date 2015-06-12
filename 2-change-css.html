@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>换肤功能</title>
+    <link id="link1" rel="stylesheet" href="2-css1.css" type="text/css">
+</head>
+<script>
+    function changeSkin(i){
+        document.getElementById('link1').href = "2-css" + i + ".css";
+    }
+</script>
+<body>
+<input type="button" value="样式一" onclick="changeSkin(1)">
+<input type="button" value="样式二" onclick="changeSkin(2)">
+<div id="div1">
+    <table class="stutable">
+        <tr>
+            <th>学生</th><th>身高</th>
+        </tr>
+        <tr>
+            <td>dyl</td><td>176</td>
+        </tr>
+        <tr>
+            <td>james</td><td>206</td>
+        </tr>
+    </table>
+</div>
+
+<div id="div2">
+    <table class="lecttable">
+        <tr>
+            <th>老师</th><th>身高</th>
+        </tr>
+        <tr>
+            <td>deron</td><td>191</td>
+        </tr>
+        <tr>
+            <td>curry</td><td>191</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
