@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>利用windows.onload将script放在head里面</title>
+    <script>
+        window.onload = function(){
+            var oBtn = document.getElementById('btn1');
+            oBtn.onclick = function (){
+                alert("并没有神奇的功能");
+            }
+        }
+    </script>
+</head>
+<body>
+<input id="btn1" type="button" value="点我吧"/>
+
+</body>
+</html>

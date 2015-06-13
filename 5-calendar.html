@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>日历</title>
+    <style>
+        #div1 {
+            margin-left: 500px;
+            margin-top:100px;
+            border: solid 1px #CCCCCC;
+            width: 252px;
+            height:650px;
+        }
+        .btn-normal {
+            color: #fff;
+            background-color: #39b3d7;
+            border-color: #269abc;
+            width: 80px;
+            height: 80px;
+            font-size: 20px;
+        }
+        .btn-active{
+            color: #fff;
+            background-color: #d2322d;
+            border-color: #ac2925;
+            width: 80px;
+            height: 80px;
+            font-size: 25px;
+        }
+
+        #div2 {
+            width: 250px;
+            height: 60px;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var oDiv = document.getElementById('div1');
+            var btns = oDiv.getElementsByTagName('input');
+            var detailDiv = document.getElementById('div2');
+            var detailArr = [
+                '01月14日 日记情人节(diary day),情侣们互相赠送恋爱日记',
+                '02月14日 情人节(st valentine\'s day),传统情人节 ',
+                '03月14日 白色情人节(white day),男孩回赠礼物的日子',
+                '04月14日 黑色情人节1(black day),属于单身贵族们的情人节',
+                '05月14日 黄色与玫瑰情人节(yellow & rose day),在这一天穿上黄色衣服,' +
+                '吃黄色咖喱饭是告诉大家你还在单身的意思,另外,在这一天送红玫瑰是倾诉爱意,' +
+                '送白玫瑰是表示犹豫未决,若送上黄玫瑰,就表示再见了',
+                '06月14日 亲吻情人节(kiss day),情侣们用亲吻表达对对方的爱意',
+                '07月14日 银色情人节(silver day),把你的意中人带回家让父母认识的好机会',
+                '08月14日 绿色情人节(green day),酷热的夏天,不妨和另一半做一趟凉爽的森林之旅 ',
+                '09月14日 音乐情人节与相片情人节(music & photo day),是举办大型社交活动的好日子,' +
+                '另外还有许多情侣在这天就蔚蓝晴朗的天空合影,所以又称为"相片情人节"',
+                '10月14日 葡萄酒情人节(wine day),当然是喝一点葡萄美酒啦',
+                '11月14日 橙色情人节与电影情人节(orange & movie day),这一天情侣们可以连赶两场电影,看完后.来杯柳橙汁吧',
+                '12月14日 拥抱情人节(hug day),在公开场合拥抱.向世人宣告你俩的爱意',
+            ];
+            for (var i = 0; i < btns.length; ++i) {
+                btns[i].index = i;
+                btns[i].onmousemove = function () {
+                    for (var j = 0; j < btns.length; ++j) {
+                        btns[j].className = 'btn-normal';
+                    }
+                    this.className = 'btn-active';
+                    detailDiv.innerHTML = detailArr[this.index];
+
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="div1">
+    <p>
+        <input type="button" value="1" class="btn-normal" >
+        <input type="button" value="2" class="btn-normal">
+        <input type="button" value="3" class="btn-normal">
+    </p>
+    <p>
+        <input type="button" value="4" class="btn-normal">
+        <input type="button" value="5" class="btn-normal">
+        <input type="button" value="6" class="btn-normal">
+    </p>
+    <p>
+        <input type="button" value="7" class="btn-normal">
+        <input type="button" value="8" class="btn-normal">
+        <input type="button" value="9" class="btn-normal">
+    </p>
+    <p>
+        <input type="button" value="10" class="btn-normal">
+        <input type="button" value="11" class="btn-normal">
+        <input type="button" value="12" class="btn-normal">
+    </p>
+    <div id="div2">点开我试试</div>
+</div>
+
+</body>
+</html>
