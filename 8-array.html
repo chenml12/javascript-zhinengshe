@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        var arr = [1,2,3,4,5,6];
+
+        //尾部添加
+        arr.push("1");
+        alert("push 1后");
+        alert(arr);
+
+        //尾部删除
+        arr.pop();
+        alert("pop后");
+        alert(arr);
+
+        //头部添加
+        arr.unshift(1);
+        alert("unshift 1后");
+        alert(arr);
+
+        //头部删除
+        arr.shift();
+        alert("shift后");
+        alert(arr);
+
+        //删除splice
+        arr.splice(2,3);
+        alert("splice(2,3)后");
+        alert(arr);
+
+        //连接两个数组 concat
+        arr2 = [7,8,9,20,18];
+
+        var arr = arr.concat(arr2);
+        alert("连接数组");
+        alert(arr);
+
+        //构成字符串，join
+        alert("加入'-'后");
+        alert(arr.join('-'));
+
+        //排序,sort
+        alert("字典序")
+        alert(arr.sort());
+
+        alert("正常的大小顺序");
+        alert(arr.sort(function(a,b){return a-b;}));
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
