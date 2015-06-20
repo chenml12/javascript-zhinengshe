@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>className和style的优先级</title>
+    <style>
+        #div1{
+            width: 400px;
+            height: 300px;
+        }
+        .box {  background: green;  }
+    </style>
+    <script>
+        function setClassName(){
+            var oDiv = document.getElementById('div1');
+            oDiv.className = 'box';
+        }
+        function setStyle(){
+            var oDiv = document.getElementById('div1');
+            oDiv.style.background = 'black';
+        }
+    </script>
+</head>
+<body>
+<!--style的优先级比class高，先修改className再修改style√，先修改style，再修改class ×-->
+<input type="button" value="修改className" onclick="setClassName()"/>
+<input type="button" value="修改setStyle" onclick="setStyle()"/>
+<div id="div1"></div>
+
+</body>
+</html>

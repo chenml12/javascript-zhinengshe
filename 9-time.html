@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>时间</title>
+    <style>
+        #div1,#div2,#div3 {
+            background: #A92633;
+            height:160px;
+            width:210px;
+            float:left;
+        }
+        #div1 img, #div2 img, #div3 img{
+            height: 150px;
+            width: 100px;
+        }
+        #maohao1,#maohao2 {
+            background: #A92633;
+            height:160px;
+            width:40px;
+            float:left;
+
+        }
+        #maohao1 img, #maohao2 img{
+            height: 150px;
+            width:20px;
+            floag:left;
+
+        }
+
+    </style>
+    <script>
+        window.onload=function(){
+            function getTime(){
+                function format(){
+                    var res = '';
+                    for(var i = 0; i < arguments.length; ++i){
+                        if(arguments[i]<=9){
+                            res += '0';
+                        }
+                        res += arguments[i];
+                    }
+                    return res;
+                }
+                var date = new Date();
+                return format(date.getHours(),date.getMinutes(),date.getSeconds());
+            }
+
+            function setTime(){
+                imgs = document.getElementsByTagName("img");
+                var str = getTime();
+                var j = 0;
+                for(var i = 0; i < imgs.length; ++i){
+                    if(i==2 || i==5) continue;
+                    imgs[i].src = "img/" + str.charAt(j++) + ".png";
+                }
+            }
+            setTime();
+            setInterval(setTime,1000);
+
+        }
+    </script>
+</head>
+<body>
+<div id="div1">
+    <img src=""/>
+    <img src=""/>
+</div>
+<div id="maohao1">
+    <img class="box" src="img/maohao.png"/>
+</div>
+<div id="div2">
+    <img src=""/>
+    <img src=""/>
+</div>
+<div id="maohao2">
+    <img class="box" src="img/maohao.png"/>
+</div>
+<div id="div3">
+    <img src=""/>
+    <img src=""/>
+</div>
+</div>
+
+</body>
+</html>

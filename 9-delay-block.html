@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>延迟显示</title>
+    <style>
+        #div1 {
+            width: 50px;
+            height: 50px;
+            background: #990000;
+            float:left;
+        }
+        #div2 {
+            width: 100px;
+            height: 150px;
+            background: #999999;
+            float:left;
+            display:none;
+            margin-left:30px;
+        }
+    </style>
+
+    <script>
+        window.onload=function(){
+            var timer=null;
+            oDiv1 = document.getElementById("div1");
+            oDiv2 = document.getElementById("div2");
+            oDiv2.onmouseover=oDiv1.onmouseover=function(){
+                clearInterval(timer);
+                oDiv2.style.display='block';
+            }
+            oDiv2.onmouseout=oDiv1.onmouseout=function(){
+                timer = setInterval( function(){oDiv2.style.display='none';}, 500);
+            }
+        }
+    </script>
+</head>
+<body>
+<div>
+<div id="div1"></div>
+<div id="div2"></div>
+</div>
+</body>
+</html>

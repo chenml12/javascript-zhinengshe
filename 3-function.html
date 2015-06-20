@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>函数传参</title>
+    <style>
+        #div1 {
+            width : 200px;
+            height: 300px;
+            background : #CCCCCC;
+        }
+    </style>
+    <script>
+        function set(name, value){
+            var oDiv = document.getElementById('div1');
+            <!--采用字典获取属性，而不是. ，因为不固定-->
+            oDiv.style[name] = value;
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="变红" onclick="set('background','red')"/>
+    <input type="button" value="变宽" onclick="set('width','400px')"/>
+    <input type="button" value="变粗" onclick="set('border','solid 3px')"/>
+    <div id="div1">
+    </div>
+
+</body>
+</html>
