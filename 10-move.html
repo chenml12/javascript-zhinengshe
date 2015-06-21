@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>无缝隙滚动</title>
+    <style>
+        * {
+            margin-left:0;
+            margin-top:50px;
+            padding:0;
+        }
+        #div1 {
+            width: 1200px;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            margin: 100px auto;
+
+        }
+        #div1 ul{
+            position: absolute;
+            left:0;
+            top:0;
+        }
+        #div1 ul li {
+            float: left;
+            list-style: none;
+            width: 300px;
+            height: 200px;
+        }
+        #div1 ul li img{
+            position: absolute;
+        }
+
+    </style>
+    <script>
+        window.onload=function(){
+            var oDiv1 = document.getElementById("div1");
+            var oUl  = oDiv1.getElementsByTagName("ul")[0];
+            var oLi  = oUl.getElementsByTagName("li");
+            var oImg = oUl.getElementsByTagName("img");
+            var speed = -2;
+            oUl.innerHTML += oUl.innerHTML;
+
+            oUl.style.width = oLi[0].offsetWidth * oLi.length + 'px';
+
+            function move() {
+                oUl.style.left=oUl.offsetLeft + speed + 'px';
+                if (oUl.offsetLeft < -oUl.offsetWidth /2 ){
+                    oUl.style.left = '0';
+                }
+            }
+            var timer = setInterval(move, 30);
+            for(var i = 0; i < oImg.length; ++i){
+                oImg[i].style.zIndex = 1;
+                oImg[i].onmouseover = function(){
+                    clearInterval(timer);
+                    this.style.marginLeft = '-50px';
+                    this.style.marginTop = '0px';
+                    this.style.width = '400px';
+                    this.style.height = '300px';
+
+                    this.style.zIndex = 999;
+                }
+                oImg[i].onmouseout = function(){
+                    timer = setInterval(move,30);
+                    this.style.width = '300px';
+                    this.style.height = '200px';
+                    this.style.marginLeft = '0';
+                    this.style.marginTop = '50px';
+                    this.style.zIndex = 1;
+                }
+            }
+
+
+        }
+    </script>
+</head>
+<body>
+<div id="div1">
+    <ul>
+        <li><img src="img/10-1.png" width='300px' height='200px'/></li>
+        <li><img src="img/10-2.png" width='300px' height='200px'/></li>
+        <li><img src="img/10-3.png" width='300px' height='200px'/></li>
+        <li><img src="img/10-4.png" width='300px' height='200px'/></li>
+    </ul>
+
+
+</div>
+
+</body>
+</html>
