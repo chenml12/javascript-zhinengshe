@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Dom基础1</title>
+    <style>
+        #div1 {
+            position: absolute;
+            /*如果没有定位，ul的offsetParent就是body*/
+        }
+
+
+    </style>
+    <script>
+        window.onload = function () {
+            oUl = document.getElementById("ul1");
+//          显示的是7,ul到li之间的空白是1，li标签占了3,li到li之间也占了3,li到ul之间的空白占了1
+//          childNodes=文本+标签
+//          alert(oUl.childNodes.length);
+
+//          children=标签
+//          alert(oUl.children.length);
+
+//          nodeType 类型
+//          1代表标签，3代表文本， 3131313这样出现。
+            for (var i = 0; i < oUl.childNodes.length; ++i) {
+//                alert(oUl.childNodes[i].nodeType);
+            }
+
+
+//          parentNode 父节点
+            aA = document.getElementsByTagName("a");
+            for (var i = 0; i < aA.length; ++i) {
+                aA[i].onclick = function () {
+                    this.parentNode.style.display = 'none';
+                }
+            }
+//          offsetParent 已经css过的定位父级
+            alert(oUl.offsetParent);
+
+//          首节点firstChild，尾节点lastChild
+
+
+//          高版本的显示的是文本，低版本是正常的标签
+            alert(oUl.firstChild);
+
+//          首标签节点firstElementChild，尾节点lastElementChild
+//            高版本是标签，低版本出问题
+            alert(oUl.firstElementChild);
+
+//            解决兼容性
+            if (oUl.firstElementChild){
+                alert(oUl.firstElementChild);
+            } else if(oUl.fistChild) {
+                alert(oUl.firstChild);
+            }
+//            兄弟节点nextSibling,nextElementSibling
+//            上一个兄弟节点previousSibling previousElementSibling
+
+//            dom操作属性
+            var oBtn = document.getElementById("btn1");
+            oBtn.onclick = function(){
+                oTxt = document.getElementById("txt1");
+                oTxt.setAttribute("value", "变变变");
+            }
+
+
+        }
+    </script>
+</head>
+<body>
+<div id="div1">
+    <div id="div2">
+        <ul id="ul1">
+            <li>1<a href="javascript:;">隐藏</a></li>
+            <li>2<a href="javascript:;">隐藏</a></li>
+            <li>3<a href="javascript:;">隐藏</a></li>
+        </ul>
+        <input id="txt1" type="text"/>
+        <input id="btn1" type="button" value="变"/>
+    </div>
+</div>
+
+
+</body>
+</html>
