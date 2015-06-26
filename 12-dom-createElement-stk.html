@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>创建元素insertBefore</title>
+    <script>
+        window.onload = function()
+        {
+            var oDiv = document.getElementById("div1");
+            var oUl = document.getElementById("ul1");
+            var oTxt = document.getElementById("txt1");
+            var oBtn = document.getElementById("btn1");
+            oBtn.onclick = function()
+            {
+                var aLi = oUl.getElementsByTagName("li");
+                var oLi = document.createElement("li");
+                oLi.innerHTML=oTxt.value + ' <a href="javascript:;">删除</a> ';
+                if (aLi.length > 0) {
+                    oUl.insertBefore(oLi, aLi[0]);
+                }
+                else
+                {
+                    oUl.appendChild(oLi);
+                }
+                oLi.firstElementChild.onclick = function(){
+                    oUl.removeChild(oLi);
+                }
+                oTxt.value = "";
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="div1">
+    <input id="txt1" type="text" /><br>
+    <input id="btn1" type="button" value="发布"/>
+
+    <ul id="ul1"></ul>
+</div>
+
+</body>
+</html>
