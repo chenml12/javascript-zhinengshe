@@ -2,9 +2,169 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>表格错开色，高亮鼠标行</title>
+    <style>
+        table, th, td {
+            /*collapse: 0px;*/
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+
+        thead {
+            background: #999999;
+        }
+
+    </style>
+    <script>
+        window.onload = function () {
+            var oTab = document.getElementById("tab1");
+            var aRows = oTab.tBodies[0].rows;
+            var oName = document.getElementById("txt1");
+            var oAge = document.getElementById("txt2");
+            var oBtn = document.getElementById("btn1");
+            var oSTxt = document.getElementById("txt3");
+            var oSBtn = document.getElementById("btn2");
+            var oTh = document.getElementById("th1");
+            var oldColor = '';
+            var curId = aRows.length;
+
+            function updateColor() {
+                for (var i = 0; i < aRows.length; ++i) {
+                    aRows[i].style.background = (i & 1) ? '#CCCCCC' : '';
+                }
+            }
+
+            updateColor();
+            for (var i = 0; i < aRows.length; ++i) {
+                aRows[i].onmouseover = function () {
+                    oldColor = this.style.background;
+                    this.style.background = 'yellow';
+                }
+                aRows[i].onmouseout = function () {
+                    this.style.background = oldColor;
+
+                }
+                aRows[i].cells[3].onclick = function () {
+                    oTab.tBodies[0].removeChild(this.parentNode);
+                    updateColor();
+
+                }
+            }
+            oBtn.onclick = function () {
+                var oTdId = document.createElement("td");
+                oTdId.innerHTML = ++curId;
+                var oTdName = document.createElement("td");
+                oTdName.innerHTML = oName.value;
+                var oTdAge = document.createElement("td");
+                oTdAge.innerHTML = oAge.value;
+                var oTr = document.createElement("tr");
+                var oTdOp = document.createElement("td");
+                oTdOp.innerHTML = ' <a href="javascript:;">删除</a> ';
+                oTr.appendChild(oTdId);
+                oTr.appendChild(oTdName);
+                oTr.appendChild(oTdAge);
+                oTr.appendChild(oTdOp);
+                oTab.tBodies[0].appendChild(oTr);
+                oTr.onmouseover = function () {
+                    oldColor = this.style.background;
+                    this.style.background = 'yellow';
+                }
+                oTr.onmouseout = function () {
+                    this.style.background = oldColor;
+
+                }
+                updateColor();
+                oTdOp.onclick = function () {
+                    oTab.tBodies[0].removeChild(this.parentNode);
+                    updateColor();
+                }
+            }
+            oSBtn.onclick = function () {
+                updateColor();
+                for (var i = 0; i < aRows.length; ++i) {
+                    var rowStr = aRows[i].cells[1].innerHTML.toLowerCase();
+                    var aStrs = oSTxt.value.split(' ');
+                    for (var j = 0; j < aStrs.length; ++j) {
+                        var sStr = aStrs[j].toLowerCase();
+                        if (rowStr.search(sStr) != -1) {
+                            aRows[i].style.background = 'red';
+                        }
+                    }
+                }
+            }
+            function sortLi(index) {
+                var aRes = [];
+                for (var i = 0; i < aRows.length; ++i) {
+                    aRes[i] = aRows[i];
+                }
+                aRes.sort(function (a, b) {
+                    var A = a.cells[index].innerHTML;
+                    var B = b.cells[index].innerHTML;
+                    if (isNaN(A) || isNaN(B)) {
+                        return A > B;
+                    }
+                    return A - '0' - B;
+                });
+                return aRes;
+            }
+
+            var aTd = oTh.getElementsByTagName("td");
+
+            for (var i = 0; i < aTd.length; ++i) {
+                aTd[i].index = i;
+                aTd[i].onclick = function () {
+                    var aRes = sortLi(this.index);
+                    for (var j = 0; j < aRes.length; ++j) {
+                        oTab.tBodies[0].appendChild(aRes[j]);
+                    }
+                    updateColor();
+                }
+
+            }
+
+        }
+    </script>
 </head>
 <body>
+<table id="tab1">
 
+    姓名：<input id="txt1" type="text"/>
+    年龄：<input id="txt2" type="text"/>
+    <input id="btn1" type="button" value="提交"/><br>
+    搜索名字: <input id="txt3" type="text"/>
+    <input id="btn2" type="button" value="搜索"/><br><br>
+    <thead id="th1">
+    <td>ID</td>
+    <td>姓名</td>
+    <td>年龄</td>
+    <td>操作</td>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>dyl</td>
+        <td>22</td>
+        <td><a href="javascript:;">删除</a></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>lili</td>
+        <td>0</td>
+        <td><a href="javascript:;">删除</a></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>jack</td>
+        <td>101</td>
+        <td><a href="javascript:;">删除</a></td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>heiman</td>
+        <td>1</td>
+        <td><a href="javascript:;">删除</a></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
