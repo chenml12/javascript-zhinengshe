@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>分享条</title>
+    <style>
+        #div1 {
+            width: 300px;
+            height: 400px;
+            position: absolute;
+            left: -250px;
+            top: 0px;
+        }
+
+        #div1 #div2 {
+            width: 250px;
+            height: 400px;
+            position: relative;
+            background: black;
+            float: left;
+            let: 0px;
+            top: 0px;
+        }
+
+        #div1 #div3 {
+            width: 50px;
+            height: 70px;
+            position: relative;
+            background: red;
+            left: 0px;
+            top: 200px;
+            float: left;
+        }
+    </style>
+    <script>
+        var timer = null;
+
+        function move(obj, iTarget, speed) {
+            if (Math.abs(obj.offsetLeft - iTarget) < speed) {
+                obj.style.left = iTarget + 'px';
+                clearInterval(timer);
+            } else {
+                obj.style.left = obj.offsetLeft + speed + 'px';
+            }
+        }
+        function bufferMove(obj, iTarget, step) {
+            var speed = (iTarget - obj.offsetLeft) / step;
+            speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+            move(obj, iTarget, speed);
+        }
+        window.onload = function () {
+            var isOverShare = false;
+            var oDiv = document.getElementById("div1");
+            var oDivShare = document.getElementById("div3");
+            oDiv.onmouseover = function () {
+                clearInterval(timer);
+                timer = setInterval(function () {
+                    bufferMove(oDiv, 0, 7)
+                }, 30);
+//                setInterval(function(){alert("hell");},30);
+
+            }
+
+
+            oDiv.onmouseout = function () {
+                clearInterval(timer);
+                timer = setInterval(function () {
+                    bufferMove(oDiv, -250, 7);
+                }, 30);
+
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="div1">
+    <div id="div2"></div>
+    <div id="div3">分享</div>
+</div>
+
+</body>
+</html>

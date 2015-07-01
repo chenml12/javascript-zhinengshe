@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>缓冲运动</title>
+    <style>
+        #div1 {
+            width: 200px;
+            height: 100px;
+            background: black;
+            position: absolute;
+        }
+        #div2 {
+            background: red;
+            position: absolute;
+            width: 1px;
+            height: 100px;
+            left: 300px;
+        }
+    </style>
+    <script>
+        var timer = null;
+        function move(obj, iTarget, speed){
+            if(Math.abs(obj.offsetLeft - iTarget) < speed){
+                obj.style.left = iTarget + 'px';
+                clearInterval(timer);
+            } else {
+                obj.style.left = obj.offsetLeft + speed + 'px';
+            }
+        }
+        function bufferMove(obj, iTarget, step){
+            var speed = (iTarget - obj.offsetLeft)/step;
+            speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+            move(obj, iTarget, speed);
+
+        }
+        window.onload = function(){
+            var oDiv = document.getElementById("div1");
+            clearInterval(timer);
+            timer = setInterval(function(){
+                bufferMove(oDiv, 300 , 7);
+            },30);
+        }
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+
+</body>
+</html>
