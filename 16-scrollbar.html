@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>跟着移动的边框</title>
+    <style>
+        body {
+            height: 2000px;
+        }
+        #div1 {
+            background: black;
+            width: 50px;
+            height: 100px;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            top: 50%;
+
+        }
+    </style>
+    <script>
+        var timer = null;
+        function move(obj, iTarget, speed){
+            if(Math.abs(obj.offsetTop - iTarget) < Math.abs(speed)){
+                obj.style.top = iTarget + 'px';
+                clearInterval(timer);
+            } else {
+                obj.style.top = obj.offsetTop + speed + 'px';
+            }
+        }
+        function bufferMove(obj, iTarget, step){
+            var speed = (iTarget - obj.offsetTop)/step;
+            speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+            move(obj, iTarget, speed);
+
+        }
+        window.onscroll = function(){
+            var oDiv = document.getElementById("div1");
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            var iTarget = parseInt( (document.documentElement.clientHeight - oDiv.offsetHeight)/2 ) + scrollTop;
+//            alert(iTarget);
+            clearInterval(timer);
+            timer = setInterval(function(){
+                bufferMove(oDiv, iTarget, 3);
+            },30);
+
+        }
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+
+
+</body>
+</html>
