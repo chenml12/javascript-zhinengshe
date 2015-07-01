@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <style>
+        * {
+            padding:0;
+            margin:0;
+        }
+        #div1{
+            width: 400px;
+            height: 300px;
+            overflow: hidden;
+            left: 40%;
+            top: 0px;
+            z-index: 1;
+            float:left;
+            position: absolute;
+        }
+
+        img {
+            width: 400px;
+            height: 300px;
+        }
+
+        li {
+            list-style-type: none;
+            float:left
+        }
+
+        .mark_left{
+            position:absolute;
+            height:300px;
+            width:200px;
+            background: red;
+            opacity: 0;
+            filter: alpha(opacity: 0);
+
+        }
+
+        .mark_right{
+            position:absolute;
+            height:300px;
+            width:200px;
+            left:200px;
+            background: yellow;
+            filter: alpha(opacity: 0);
+            opacity: 0;
+        }
+
+        .big_pic .prev{
+            height: 30px;
+            width: 30px;
+            font-size: 20px;
+            top: 130px;
+            left: 10px;
+            position: absolute;
+            opacity: 0;
+            filter: alpha(opacity: 0);
+
+        }
+        .big_pic .next{
+            height: 30px;
+            width: 30px;
+            font-size: 20px;
+            top: 130px;
+            right: 10px;
+            position: absolute;
+            opacity: 0;
+            filter: alpha(opacity: 0);
+        }
+    </style>
+    <title>滚动相册</title>
+    <script src="18-move.js"></script>
+    <script>
+        function getByClass(oParent, sClass){
+            var aEle = oParent.getElementsByTagName('*');
+            var aRes = [];
+
+            for(var i = 0; i < aEle.length; ++i){
+                if(aEle[i].className == sClass){
+                    aRes.push(aEle[i]);
+                }
+            }
+            return aRes;
+        }
+        window.onload = function(){
+            var oDiv = document.getElementById("div1");
+
+            var oMarkLeft = getByClass(oDiv, "mark_left")[0];
+
+            var oMarkRight = getByClass(oDiv, "mark_right")[0];
+
+            var oBtnPrev = getByClass(oDiv, "prev")[0];
+            var oBtnNext = getByClass(oDiv, "next")[0];
+
+
+
+            oBtnPrev.onmouseover = oMarkLeft.onmouseover = function(){
+                startMove(oBtnPrev, 'opacity', 100, 5);
+            }
+            oBtnPrev.onmouseout = oMarkLeft.onmouseout = function(){
+                startMove(oBtnPrev, 'opacity', 0, -5);
+            }
+            oBtnNext.onmouseover = oMarkRight.onmouseover = function(){
+                startMove(oBtnNext, 'opacity', 100, 5);
+            }
+            oBtnNext.onmouseout = oMarkRight.onmouseout = function(){
+                startMove(oBtnNext, 'opacity', 0, -5);
+            }
+        }
+
+    </script>
+</head>
+<body>
+<div id="div1" class="play">
+    <a class="mark_left" href="javascript:;"></a>
+    <a class="mark_right" href="javascript:;"></a>
+
+    <ul class="big_pic">
+        <button class="prev" > < </button>
+        <button class="next" > > </button>
+        <li><img src="img/18-1.jpg"/></li>
+        <li><img src="img/18-2.jpg"/></li>
+        <li><img src="img/18-3.jpg"/></li>
+        <li><img src="img/18-4.jpg"/></li>
+        <li><img src="img/18-5.jpg"/></li>
+        <li><img src="img/18-6.jpg"/></li>
+    </ul>
+</div>
+</body>
+</html>
