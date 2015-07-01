@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>多图淡入淡出</title>
+    <style>
+        div{
+            width:80px;
+            height:80px;
+            background:black;
+            margin:20px;
+            float:left;
+            filter:alpha(opacity:30);
+            opacity:0.3;
+        }
+    </style>
+    <script>
+        function startMove(obj, iTarget, speed){
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function(){
+                if(Math.abs(obj.alpha - iTarget) < Math.abs(speed)){
+                    clearInterval(obj.timer);
+                    obj.alpha = iTarget;
+                } else {
+                    obj.alpha += speed;
+                }
+                obj.style.filter = 'alpha(opacity:' + obj.alpha + ')';
+                obj.style.opacity = obj.alpha/100;
+
+            },30);
+        }
+        window.onload = function(){
+            aDiv = document.getElementsByTagName("div");
+            for(var i = 0; i < aDiv.length; ++i){
+                aDiv[i].timer = null;
+                aDiv[i].alpha = 30;
+                aDiv[i].onmousemove = function(){
+                    startMove(this, 100, 5);
+                }
+                aDiv[i].onmouseout = function(){
+                    startMove(this, 30, -5);
+                }
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>多个div运动</title>
+    <style>
+        div{
+            width:100px;
+            height:30px;
+            background:red;
+            margin: 20px;
+            border: 10px black solid;
+        }
+    </style>
+    <script>
+        function getStyle(obj,attr){
+            if(obj.currentStyle){
+                return obj.currentStyle[attr];
+            }
+            return getComputedStyle(obj,false)[attr];
+        }
+        function startMove(obj, attr, iTarget, speed){
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function(){
+                var iAttr = parseInt(getStyle(obj,attr));
+                if(Math.abs(iAttr-iTarget) < Math.abs(speed)){
+                    clearInterval(obj.timer);
+                    obj.style[attr]= iTarget + 'px';
+                } else {
+                    obj.style[attr]= iAttr + speed + 'px';
+                }
+            },30);
+        }
+        window.onload = function(){
+            var  aDiv = document.getElementsByTagName("div");
+            for(var i = 0; i < aDiv.length; ++i){
+                aDiv[i].timer = null;
+                aDiv[i].onmouseover = function(){
+                    startMove(this,'width',400,6);
+//                    startMove(this,'height',400,6);
+                }
+                aDiv[i].onmouseout = function(){
+                    startMove(this,'width',100,-6);
+//                    startMove(this,'height',30,-6);
+                }
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+
+<div id="div2"></div>
+
+<div id="div3"></div>
+
+</body>
+</html>
