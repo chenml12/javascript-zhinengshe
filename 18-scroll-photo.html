@@ -4,51 +4,56 @@
     <meta charset="UTF-8">
     <style>
         * {
-            padding:0;
-            margin:0;
+            padding: 0;
+            margin: 0;
         }
-        #div1{
+
+        #div1 {
             width: 400px;
             height: 300px;
             overflow: hidden;
             left: 40%;
-            top: 0px;
+            top: 20%;
             z-index: 1;
-            float:left;
+            float: left;
             position: absolute;
+            border: 1px solid black;
         }
 
-        img {
+        #div1 .big_pic img {
             width: 400px;
             height: 300px;
+            position: absolute;
         }
 
         li {
             list-style-type: none;
-            float:left
+            float: left
         }
 
-        .mark_left{
-            position:absolute;
-            height:300px;
-            width:200px;
+        #div1 .big_pic .mark_left {
+            position: absolute;
+            height: 300px;
+            width: 200px;
             background: red;
             opacity: 0;
-            filter: alpha(opacity: 0);
+            filter: alpha(opacity:0);
+            z-index: 9999;
 
         }
 
-        .mark_right{
-            position:absolute;
-            height:300px;
-            width:200px;
-            left:200px;
+        #div1 .big_pic .mark_right {
+            position: absolute;
+            height: 300px;
+            width: 200px;
+            left: 200px;
             background: yellow;
-            filter: alpha(opacity: 0);
+            filter: alpha(opacity:0);
             opacity: 0;
+            z-index: 9999;
         }
 
-        .big_pic .prev{
+        #div1 .big_pic .prev {
             height: 30px;
             width: 30px;
             font-size: 20px;
@@ -56,10 +61,12 @@
             left: 10px;
             position: absolute;
             opacity: 0;
-            filter: alpha(opacity: 0);
+            filter: alpha(opacity:0);
+            z-index: 9999;
 
         }
-        .big_pic .next{
+
+        #div1 .big_pic .next {
             height: 30px;
             width: 30px;
             font-size: 20px;
@@ -67,59 +74,172 @@
             right: 10px;
             position: absolute;
             opacity: 0;
-            filter: alpha(opacity: 0);
+            filter: alpha(opacity:0);
+            z-index: 9999;
         }
+
+        #div2 {
+            width: 480px;
+            height: 120px;
+            overflow: hidden;
+            z-index: 1;
+            left: 37%;
+            top: 68%;
+            /*float:left;*/
+            position: absolute;
+            border: 1px solid black;
+        }
+
+        #div2 ul {
+            width: 960px;
+            height: 120px;
+            position: relative;
+            left: 0;
+
+        }
+
+        #div2 .small_pic img {
+            width: 160px;
+            height: 120px;
+            position: relative;
+            opacity: 0.3;
+            filter: alpha(opacity:30));
+
+        }
+
     </style>
     <title>滚动相册</title>
     <script src="18-move.js"></script>
     <script>
-        function getByClass(oParent, sClass){
+        function getByClass(oParent, sClass) {
             var aEle = oParent.getElementsByTagName('*');
             var aRes = [];
 
-            for(var i = 0; i < aEle.length; ++i){
-                if(aEle[i].className == sClass){
+            for (var i = 0; i < aEle.length; ++i) {
+                if (aEle[i].className == sClass) {
                     aRes.push(aEle[i]);
                 }
             }
             return aRes;
         }
-        window.onload = function(){
+        window.onload = function () {
             var oDiv = document.getElementById("div1");
 
             var oMarkLeft = getByClass(oDiv, "mark_left")[0];
-
             var oMarkRight = getByClass(oDiv, "mark_right")[0];
 
             var oBtnPrev = getByClass(oDiv, "prev")[0];
             var oBtnNext = getByClass(oDiv, "next")[0];
 
+            var aLi = oDiv.getElementsByTagName("li");
+            var aImg = oDiv.getElementsByTagName("img");
+
+            var oDiv2 = document.getElementById("div2");
+            var oUl2 = oDiv2.getElementsByTagName("ul")[0];
+            var aImg2 = oDiv2.getElementsByTagName("img");
+            startMove(aImg2[0], 'opacity', 100, 5);
+
+            var curI = 0;
+            var curZInd = 0;
+
+            function tab() {
+                aImg[curI].style.top = '-300px';
+                aImg[curI].style.zIndex = ++curZInd;
+                startMove(aImg[curI], 'top', 0, 15);
+                for (var i = 0; i < aImg2.length; ++i) {
+                    if (i == curI) {
+                        startMove(aImg2[i], 'opacity', 100, 5);
+                    } else {
+                        startMove(aImg2[i], 'opacity', 30, -5);
+                    }
+                }
+            }
+
+            for (var i = aImg.length - 1; i >= 0; --i) {
+                aImg[i].style.zIndex = ++curZInd;
+            }
+
+            for (var i = 0; i < aImg2.length; ++i) {
+                aImg2[i].index = i;
+                aImg2[i].onmouseover = function () {
+                    if(curI == this.index){
+                        return;
+                    }
+                    curI = this.index;
+                    tab();
+                }
+            }
 
 
-            oBtnPrev.onmouseover = oMarkLeft.onmouseover = function(){
+            oBtnPrev.onmouseover = oMarkLeft.onmouseover = function () {
                 startMove(oBtnPrev, 'opacity', 100, 5);
             }
-            oBtnPrev.onmouseout = oMarkLeft.onmouseout = function(){
+            oBtnPrev.onmouseout = oMarkLeft.onmouseout = function () {
                 startMove(oBtnPrev, 'opacity', 0, -5);
             }
-            oBtnNext.onmouseover = oMarkRight.onmouseover = function(){
+            oBtnNext.onmouseover = oMarkRight.onmouseover = function () {
                 startMove(oBtnNext, 'opacity', 100, 5);
             }
-            oBtnNext.onmouseout = oMarkRight.onmouseout = function(){
+            oBtnNext.onmouseout = oMarkRight.onmouseout = function () {
                 startMove(oBtnNext, 'opacity', 0, -5);
             }
+
+            oBtnNext.onclick = function () {
+
+                if (curI < aLi.length - 1) {
+                    ++curI;
+                    tab();
+                }
+
+                if(curI == 0){
+                    startMove(oUl2, 'left', 0, 5);
+                } else if (curI == aLi.length -1) {
+                    startMove(oUl2, 'left',-(curI-2)*aImg2[0].offsetWidth, -5);
+                } else {
+                    startMove(oUl2, 'left', -(curI-1)*aImg2[0].offsetWidth,-5);
+                }
+            }
+            oBtnPrev.onclick = function () {
+                if (curI > 0) {
+                    --curI;
+                    tab();
+                }
+
+                if(curI == 0){
+                    startMove(oUl2, 'left', 0, -5);
+                } else if (curI == aLi.length -1) {
+                    startMove(oUl2, 'left',-(curI-2)*aImg2[0].offsetWidth, 5);
+                } else {
+                    startMove(oUl2, 'left', -(curI-1)*aImg2[0].offsetWidth,5);
+                }
+            }
+
+
         }
 
     </script>
 </head>
 <body>
 <div id="div1" class="play">
-    <a class="mark_left" href="javascript:;"></a>
-    <a class="mark_right" href="javascript:;"></a>
+
 
     <ul class="big_pic">
-        <button class="prev" > < </button>
-        <button class="next" > > </button>
+        <a class="mark_left" href="javascript:;"></a>
+        <a class="mark_right" href="javascript:;"></a>
+        <button class="prev"> <</button>
+        <button class="next"> ></button>
+        <li><img src="img/18-1.jpg"/></li>
+        <li><img src="img/18-2.jpg"/></li>
+        <li><img src="img/18-3.jpg"/></li>
+        <li><img src="img/18-4.jpg"/></li>
+        <li><img src="img/18-5.jpg"/></li>
+        <li><img src="img/18-6.jpg"/></li>
+    </ul>
+
+
+</div>
+<div id="div2" class="small_play">
+    <ul class="small_pic">
         <li><img src="img/18-1.jpg"/></li>
         <li><img src="img/18-2.jpg"/></li>
         <li><img src="img/18-3.jpg"/></li>
