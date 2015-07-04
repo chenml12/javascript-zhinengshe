@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>事件基础</title>
+    <style>
+        #div1 {
+            width: 200px;
+            height: 400px;
+            background: red;
+            display: none;
+        }
+    </style>
+    <script>
+        function stopPropagation(evt) {
+            if (typeof evt.stopPropagation != "undefined") {
+                evt.stopPropagation();
+            } else {
+                evt.cancelBubble = true;
+            }
+        }
+        window.onload = function () {
+            var oBtn = document.getElementById("btn1");
+            var oDiv = document.getElementById("div1");
+            oBtn.onclick = function (evt) {
+                oDiv.style.display = 'block';
+                var oEvent = evt || event;
+                stopPropagation(oEvent);
+
+            }
+            document.onclick = function () {
+                oDiv.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+<button id="btn1"> 显示</button>
+<div id="div1"></div>
+
+</body>
+</html>

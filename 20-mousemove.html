@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>鼠标移动</title>
+    <style>
+        div {
+            width: 20px;
+            height: 20px;
+            background: #A92633;
+            position: absolute;
+        }
+    </style>
+    <script>
+        function getMouseXY(et){
+            var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            var scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
+            var top = et.clientY + scrollTop;
+            var left = et.clientX + scrollLeft;
+            return {x:left,y:top};
+
+        }
+        document.onmousemove = function (et) {
+            et = et ||   event;
+            var aDiv = document.getElementsByTagName("div");
+            for (var i = aDiv.length - 1; i > 0 ; --i) {
+
+                aDiv[i].style.top = aDiv[i-1].offsetTop + 'px';
+                aDiv[i].style.left = aDiv[i-1].offsetLeft + 'px';
+            }
+            aDiv[0].style.top =  getMouseXY(et).y + 'px';
+            aDiv[0].style.left = getMouseXY(et).x + 'px';
+            alert(aDiv[0].style.top+',' + aDiv[0].style.left);
+        }
+    </script>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+
+</body>
+</html>

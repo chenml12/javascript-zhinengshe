@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>合理输入框</title>
+    <script src="19-perfect-move.js"></script>
+    <style>
+        #div1{
+            float: left;
+            width: 400px;
+            position: absolute;
+        }
+        input{
+            float: left;
+        }
+        #div2{
+            width: 100px;
+            height: 10px;
+            margin-top: 2px;
+            font-size: 14px;
+            color: red;
+            float:left;
+            filter: alpha(opacity:0);
+            opacity:0;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var oTxt = document.getElementById("txt1");
+            var oDiv2 = document.getElementById("div2");
+            oTxt.onkeydown = function(et){
+                et = et || event;
+                var isNaN = et.keyCode< 48 || et.keyCode > 57;
+                var isNaB = et.keyCode != 8 && et.keyCode != 46;
+//                alert(et.keyCode);
+                if(isNaN && isNaB){
+                    startBufferMove(oDiv2, {opacity:100},3);
+                    return false;
+                }
+                startBufferMove(oDiv2,{opacity:0},3);
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+<div id="div1">
+<input id="txt1" type="text"/>
+    <div id="div2">只能输入数字</div>
+</div>
+</body>
+</html>

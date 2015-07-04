@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>鼠标事件</title>
+    <script>
+        window.onload = function () {
+            var oDiv = document.getElementById("div1");
+            var oBtn = document.getElementById("btn1");
+            var oTxt = document.getElementById("txt1");
+
+            function reply() {
+                var cur = oDiv.getElementsByTagName("p").length + 1;
+                var oP = document.createElement("p");
+                oP.innerHTML = '第' + cur + '楼' + oTxt.value;
+                oDiv.appendChild(oP);
+            }
+
+            oBtn.onclick = reply;
+            oTxt.onkeydown = function (et) {
+                if (et.keyCode == 13) {
+                    reply();
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="div1">
+    <input id="txt1" type="text"/>
+    <button id="btn1">发表回复</button>
+
+</div>
+
+</body>
+</html>

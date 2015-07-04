@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>自定义菜单</title>
+    <style>
+        div {
+            width: 90px;
+            height: 90px;
+            display: none;
+            position: absolute;
+        }
+
+        ul {
+            background: #CCCCCC;
+            width: 90px;
+            height: 90px;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            overflow: hidden;
+            border: 2px solid #999999;
+
+        }
+
+        li {
+            list-style-type: none;
+            font-size: 5px;
+            margin: 0;
+            padding: 5px;
+            border-bottom: 1px dashed #999999;
+        }
+    </style>
+    <script>
+
+        function getMouseXY(et){
+            var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            var scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
+            var top = et.clientY + scrollTop;
+            var left = et.clientX + scrollLeft;
+            return {x:left,y:top};
+
+        }
+        function stopPropagation(evt) {
+            if (typeof evt.stopPropagation != "undefined") {
+                evt.stopPropagation();
+            } else {
+                evt.cancelBubble = true;
+            }
+        }
+        window.onload = function () {
+            var oDiv = document.getElementById("div1");
+            document.oncontextmenu = function (et) {
+                et = et || event;
+                var XY = getMouseXY(et);
+                oDiv.style.left = XY.x + 'px';
+                oDiv.style.top = XY.y + 'px';
+                oDiv.style.display='block';
+                return false;
+            }
+            oDiv.onclick = function(et){
+                et = et || event;
+                //处理事件
+                stopPropagation(et);
+
+            }
+            document.onclick = function(){
+                oDiv.style.display='none';
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="div1">
+    <ul>
+        <li>复制</li>
+        <li>黏贴</li>
+        <li>分享到朋友圈</li>
+        <li>网址二维码</li>
+    </ul>
+</div>
+
+</body>
+</html>
