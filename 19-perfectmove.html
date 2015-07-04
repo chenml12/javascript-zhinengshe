@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>完美移动</title>
+    <style>
+        #div1 {
+            width: 80px;
+            height: 80px;
+            background: red;
+        }
+    </style>
+    <script src="19-perfect-move.js"></script>
+    <script>
+        window.onload = function(){
+            var oDiv = document.getElementById("div1");
+            oDiv.onmouseover = function(){
+                startBufferMove(oDiv, {height: 300, width: 300},3 );
+            }
+            oDiv.onmouseout = function(){
+                startBufferMove(oDiv, {height: 80, width: 80},3 );
+            }
+        }
+    </script>
+
+</head>
+<body>
+<div id="div1"></div>
+
+</body>
+</html>

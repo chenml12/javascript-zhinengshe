@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>广告幻灯片</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+
+        #div1 {
+            width: 400px;
+            height: 150px;
+            left: 40%;
+            top: 10%;
+            position: absolute;
+            overflow: hidden;
+
+        }
+
+        #div1 #ul1 {
+            top: 0px;
+            width: 400px;
+            height: 150px;
+            position: absolute;
+
+        }
+
+        #div1 #ul1 li {
+            list-style-type: none;
+            width: 400px;
+            height: 150px;
+        }
+
+        #div1 #ul1 li img {
+            width: 400px;
+            height: 150px;
+        }
+
+        #ul2 {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        #ul2 li {
+            float: left;
+            list-style-type: none;
+            margin-left: 10px;
+            color: red;
+        }
+
+        .active {
+            background: black;
+        }
+    </style>
+
+    <script src="19-perfect-move.js"></script>
+    <script>
+        window.onload = function () {
+            var oDiv = document.getElementById("div1");
+            var oUl = oDiv.getElementsByTagName("ul")[0];
+            var oUl2 = oDiv.getElementsByTagName("ul")[1];
+
+            var aLi = oUl.getElementsByTagName("li");
+
+            var aLi2 = oUl2.getElementsByTagName("li");
+
+            var cur = 0;
+
+            function tab() {
+                startBufferMove(oUl, {top: cur * -150}, 2);
+                for (var i = 0; i < aLi2.length; ++i) {
+                    aLi2[i].className = '';
+                }
+                aLi2[cur].className = 'active';
+            }
+
+            var timer = setTimer();
+
+            function setTimer() {
+                return setInterval(function () {
+                    cur++;
+                    if (cur == aLi2.length) {
+                        cur = 0;
+                    }
+                    tab();
+                }, 1000);
+            }
+
+            for (var i = 0; i < aLi.length; ++i) {
+                aLi[i].index = aLi2[i].index = i;
+                aLi[i].onmouseover = aLi2[i].onmouseover = function () {
+                    clearInterval(timer);
+                    cur = this.index;
+                    tab();
+                }
+                aLi[i].onmouseout = aLi2[i].onmouseout = function () {
+                    timer = setTimer();
+                }
+
+            }
+
+        }
+
+    </script>
+</head>
+<body>
+<div id="div1">
+
+    <ul id="ul1">
+        <li><img src="img/19-1.jpg"/></li>
+        <li><img src="img/19-2.jpg"/></li>
+        <li><img src="img/19-3.jpg"/></li>
+        <li><img src="img/19-4.jpg"/></li>
+    </ul>
+    <ul id="ul2">
+        <li class="active">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+</div>
+</body>
+</html>

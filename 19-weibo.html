@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>微博</title>
+    <style>
+        #div1 {
+            width: 1000px;
+            height: 700px;
+            margin: 10px auto;
+            word-break: break-all;
+
+        }
+
+        #ul1 {
+            width: 400px;
+            height: 600px;
+            border: 1px solid black;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #ul1 li {
+            list-style-type: none;
+            border-bottom: 1px dashed #999999;
+            padding: 4px;
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <script src="19-perfect-move.js"></script>
+    <script>
+        window.onload = function () {
+            var oUl = document.getElementById("ul1");
+            var oTxt = document.getElementById("txt1");
+            var oBtn = document.getElementById("btn1");
+            oBtn.onclick = function () {
+                var oLi = document.createElement("li");
+                oLi.innerHTML = oTxt.value;
+                oTxt.value = '';
+                if (oUl.children.length) {
+                    oUl.insertBefore(oLi, oUl.children[0]);
+                } else {
+                    oUl.appendChild(oLi);
+                }
+                var iHeight = oLi.offsetHeight;
+                oLi.style.height = '0';
+
+                oLi.style.opacity = '0';
+                oLi.style.filter = 'alpha(opacity:0)';
+                startBufferMove(oLi, {height: iHeight, opacity: 100}, 5);
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div id="div1">
+    <textarea id="txt1" rows="4" cols="36"></textarea>
+    <button id="btn1">发布</button>
+    <ul id="ul1">
+
+    </ul>
+</div>
+</body>
+</html>
